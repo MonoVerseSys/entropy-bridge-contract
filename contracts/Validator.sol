@@ -1,9 +1,9 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.9;
 
 
-import "./openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "./openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol";
 import "./IValidator.sol";
 
 contract Validator is IValidator, Initializable, AccessControlEnumerableUpgradeable {

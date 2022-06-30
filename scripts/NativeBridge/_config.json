@@ -1,0 +1,6 @@
+{
+  "contractName": "NativeBridge",
+  "networks": {
+    "entropy": "0x75fF783140bCAAE480083E98a13694e3146eEf8c"
+  }
+}

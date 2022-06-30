@@ -4,21 +4,38 @@ import path from 'path'
 import { Contract } from 'ethers'
 export interface DeployParams {
     contractName: string
-    deployParams: any
+    deployParams: any[]
 }
 export interface ContractAttach {
     deployedAddress: string
     contractName: string
 }
+export interface Config {
+    contractName: string
+    networks: { [key: string]: string }
+}
+
+const getNetwork = (): string => {
+    return process.env.HARDHAT_NETWORK || 'local'
+}
 
 const writeConfig = (contractName: string, address: string) => {
     const filePath = path.join(__dirname, contractName, '_config.json')
-    const jsonData = fs.readFileSync(filePath, 'utf8')
-    const jsonObj = JSON.parse(jsonData)
-
-    const net: string = process.env.HARDHAT_NETWORK || ''
-    jsonObj[net].deployedAddress = address
-    fs.writeFileSync(filePath, JSON.stringify(jsonObj, null, 2))
+    const net: string = getNetwork()
+    if (fs.existsSync(filePath)) {
+        const jsonData = fs.readFileSync(filePath, 'utf8')
+        const config: Config = JSON.parse(jsonData) as Config
+        config.networks[net] = address
+        fs.writeFileSync(filePath, JSON.stringify(config, null, 2))
+    } else {
+        const config: Config = {
+            contractName,
+            networks: {
+                [net]: address,
+            },
+        }
+        fs.writeFileSync(filePath, JSON.stringify(config, null, 2))
+    }
 }
 
 const deploy = async (params: DeployParams) => {
@@ -74,14 +91,4 @@ const connectToSigner = async (contract: Contract, index: number) => {
     const c = contract.connect(s[index])
     return [c, s[index]]
 }
-
-module.exports = {
-    deploy,
-    deployProxy,
-    upgradeProxy,
-    attach,
-    singers,
-    ethers,
-    connectToSigner,
-    connectToWallet,
-}
+export { deploy, deployProxy, upgradeProxy, attach, singers, ethers, connectToSigner, connectToWallet, getNetwork }
