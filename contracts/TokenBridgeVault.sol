@@ -10,10 +10,10 @@ import "@openzeppelin/contracts-upgradeable/utils/cryptography/ECDSAUpgradeable.
 import "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./IValidator.sol";
+import "./IErc20.sol";
 
 
-
-contract NativeBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgradeable, OwnableUpgradeable {
+contract TokenBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgradeable, OwnableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
     using ECDSAUpgradeable for bytes32;
     using AddressUpgradeable for address payable;
@@ -28,6 +28,7 @@ contract NativeBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgr
     mapping(bytes32 => ConfirmData) private _confirmations;
     CountersUpgradeable.Counter private _transactionId;
     IValidator private _validator;
+    IErc20 private _erc20;
     string private _name;
 
 
@@ -35,7 +36,7 @@ contract NativeBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgr
     event Confirm(bytes32 indexed trHash, uint256 indexed trId, address validatorAddress);
     event Withdrawal(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
 
-    function initialize(string memory name, address validatorCa) public initializer {
+    function initialize(string memory name, address validatorCa, address tokenCa) public initializer {
         require(validatorCa != address(0), "zero address");
 
         __Ownable_init();
@@ -43,6 +44,8 @@ contract NativeBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgr
         __Pausable_init();
         _name = name;
         _validator = IValidator(validatorCa);
+        _erc20 = IErc20(tokenCa);
+
     }
     function getName() public view returns (string memory) {
         return _name;
@@ -69,19 +72,20 @@ contract NativeBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgr
         return data;
     }
 
-    function deposit(address _receiver) external payable whenNotPaused nonReentrant {
+    function deposit(address _receiver, uint256 amount) external payable whenNotPaused nonReentrant {
         require(_receiver != address(0), "zero address");
-        require(msg.value > 0, "zero value");
-        _transactionId.increment();
+        require(_erc20.allowance(msg.sender, address(this)) >= amount, "allowance not enough");
+        _erc20.transferFrom(msg.sender, address(this), amount);
 
+        _transactionId.increment();
         bytes32 data = _createHash(block.number, 
                 _transactionId.current(),
                 getChainID(),
                 _receiver,
-                msg.value);
+                amount);
         
         _transactions[data] = true;
-        emit Depoist(data, _transactionId.current(), _receiver, msg.value);
+        emit Depoist(data, _transactionId.current(), _receiver, amount);
     }
 
     function confirmWithdrawal(
