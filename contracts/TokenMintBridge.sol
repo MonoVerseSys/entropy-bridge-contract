@@ -7,7 +7,7 @@ import "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol";
 import "./WErc20.sol";
 import "./BaseBridge.sol";
 
-contract TokenBridgeMintBurn is BaseBridge {
+contract TokenMintBridge is BaseBridge {
     using CountersUpgradeable for CountersUpgradeable.Counter;
     using AddressUpgradeable for address payable;
     

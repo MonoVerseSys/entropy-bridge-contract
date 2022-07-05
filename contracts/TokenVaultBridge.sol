@@ -8,7 +8,7 @@ import "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol";
 import "./IErc20.sol";
 import "./BaseBridge.sol";
 
-contract TokenBridge is BaseBridge {
+contract TokenVaultBridge is BaseBridge {
     using CountersUpgradeable for CountersUpgradeable.Counter;
     using AddressUpgradeable for address payable;
     
