@@ -53,7 +53,7 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
     function _createHash(uint256 blockNumber, uint256 trId, uint256  chainId,  address owner, uint256 amount) internal pure returns(bytes32) {
         
          bytes32 data = keccak256(
-            abi.encode(
+            abi.encodePacked(
                 blockNumber, 
                 trId,
                 chainId,
