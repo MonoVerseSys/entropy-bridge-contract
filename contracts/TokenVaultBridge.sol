@@ -42,7 +42,7 @@ contract TokenVaultBridge is BaseBridge {
                 amount);
         
         _transactions[data] = true;
-        emit Depoist(data, _transactionId.current(), _receiver, amount);
+        emit Deposit(data, _transactionId.current(), _receiver, amount);
     }
 
     function executeWithdrawal(bytes32 trHash, uint256 trId,  address to, uint256 amount) override internal {

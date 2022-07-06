@@ -26,7 +26,7 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
     string internal _name;
 
 
-    event Depoist(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
+    event Deposit(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
     event Confirm(bytes32 indexed trHash, uint256 indexed trId, address validatorAddress);
     event Withdrawal(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
     

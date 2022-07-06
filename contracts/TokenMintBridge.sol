@@ -42,7 +42,7 @@ contract TokenMintBridge is BaseBridge {
                 amount);
         
         _transactions[data] = true;
-        emit Depoist(data, _transactionId.current(), _receiver, amount);
+        emit Deposit(data, _transactionId.current(), _receiver, amount);
     }
 
 

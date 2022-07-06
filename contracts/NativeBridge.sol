@@ -37,9 +37,9 @@ contract NativeBridge is BaseBridge {
                 msg.value);
         
         _transactions[data] = true;
-        emit Depoist(data, _transactionId.current(), _receiver, msg.value);
+        emit Deposit(data, _transactionId.current(), _receiver, msg.value);
     }
-    
+
     function deposit(address _receiver, uint256 amount) override external {}
 
 
