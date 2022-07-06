@@ -25,7 +25,7 @@ contract NativeBridge is BaseBridge {
         
     }
 
-    function deposit(address _receiver) override external payable whenNotPaused nonReentrant {
+    function depositNative(address _receiver) override external payable whenNotPaused nonReentrant {
         require(_receiver != address(0), "zero address");
         require(msg.value > 0, "zero value");
         _transactionId.increment();
@@ -40,7 +40,7 @@ contract NativeBridge is BaseBridge {
         emit Deposit(data, _transactionId.current(), _receiver, msg.value);
     }
 
-    function deposit(address _receiver, uint256 amount) override external {}
+    function depositToken(address _receiver, uint256 amount) override external {}
 
 
     function executeWithdrawal(bytes32 trHash, uint256 trId,  address to, uint256 amount) override internal {

@@ -13,9 +13,6 @@ describe('Test', function () {
         const address = signers[0].address
         const id = '1'
 
-        // const abiCoder = new ethers.utils.AbiCoder()
-        // const data = abiCoder.encode(['uint256', 'uint256', 'address', 'string'], [a, b, address, id])
-
         let message = ethers.utils.solidityPack(['uint256', 'uint256', 'address', 'string'], [a, b, address, id])
         message = ethers.utils.solidityKeccak256(['bytes'], [message])
         const signature = await signers[0].signMessage(ethers.utils.arrayify(message))

@@ -127,8 +127,8 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
         }
     }
 
-    function deposit(address _receiver) external payable virtual;
-    function deposit(address _receiver, uint256 amounnt) external virtual;
+    function depositNative(address _receiver) external payable virtual;
+    function depositToken(address _receiver, uint256 amounnt) external virtual;
     function executeWithdrawal(bytes32 trHash, uint256 trId,  address to, uint256 amount) internal virtual;
 
     uint256[46] private __gap; // 50 - 4

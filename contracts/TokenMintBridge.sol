@@ -27,9 +27,9 @@ contract TokenMintBridge is BaseBridge {
         
     }
 
-    function deposit(address _receiver) override external payable {}    
+    function depositNative(address _receiver) override external payable {}    
 
-    function deposit(address _receiver, uint256 amount) override external whenNotPaused nonReentrant {
+    function depositToken(address _receiver, uint256 amount) override external whenNotPaused nonReentrant {
         require(_receiver != address(0), "zero address");
         require(_erc20.allowance(msg.sender, address(this)) >= amount, "insufficient allowance");
         _erc20.burnFrom(msg.sender, amount);
