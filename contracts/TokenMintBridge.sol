@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol";
-import "./WErc20.sol";
+import "./IWErc20.sol";
 import "./BaseBridge.sol";
 
 contract TokenMintBridge is BaseBridge {
@@ -12,19 +12,18 @@ contract TokenMintBridge is BaseBridge {
     using AddressUpgradeable for address payable;
     
     CountersUpgradeable.Counter private _transactionId;
-    WErc20 private _erc20;
+    IWErc20 private _erc20;
 
 
 
-    function initialize(string memory tokenName, string memory symbol, string memory _bridgeName, address validatorCa) public initializer {
+    function initialize(address tokenCa, string memory _bridgeName, address validatorCa) public initializer {
         require(validatorCa != address(0), "zero address");
 
         __Ownable_init();
         __ReentrancyGuard_init();
         __Pausable_init();
         __BaseBridge_init(_bridgeName, validatorCa);
-        _erc20 = new WErc20(address(this), tokenName, symbol);
-        
+        _erc20 = IWErc20(tokenCa);
     }
 
     function depositNative(address _receiver) override external payable {}    
