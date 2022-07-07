@@ -5,3 +5,6 @@
   3. TokenMinter의 경우 WErc20.sol 배포
   4. 각 유형의 Bridge배포
    
+## 유형
+ * coin <-> token === NativeBridge <-> TokenMintBridge
+ * token (orgin) <->  token (wrap) === TokenVaultBridge <-> TokenMintBridge
