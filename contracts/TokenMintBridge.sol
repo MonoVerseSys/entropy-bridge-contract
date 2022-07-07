@@ -16,7 +16,7 @@ contract TokenMintBridge is BaseBridge {
 
 
 
-    function initialize(address tokenCa, string memory _bridgeName, address validatorCa) public initializer {
+    function initialize(string memory _bridgeName, address tokenCa, address validatorCa) public initializer {
         require(validatorCa != address(0), "zero address");
 
         __Ownable_init();
