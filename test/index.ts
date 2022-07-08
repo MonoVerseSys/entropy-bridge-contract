@@ -66,13 +66,6 @@ describe('Test', function () {
         const chainId = 31337
         const owner = depositer.address
 
-        // console.log(hash, trId)
-
-        // const hash = result.events.topics[0]
-        // console.log(result.blockNumber)
-
-        // console.log(JSON.stringify(result.events[0]))
-
         for (let i = 1; i <= 3; i++) {
             const signature = await signers[i].signMessage(ethers.utils.arrayify(hash))
             const receipt2 = await nativeBridge.confirmWithdrawal(blockNumber, trId, chainId, owner, sendValue, signature)
@@ -81,12 +74,5 @@ describe('Test', function () {
         }
         const balance2 = await ethers.provider.getBalance(nativeBridgeAddress)
         expect(balance2.toString()).to.equal('0')
-
-        // const amount = await ethers.provider.getBalance(nativeBridgeAddress)
-        // console.log('amount', amount.toString())
-
-        // expect(amount.toString()).to.equal(sendValue)
-
-        // confirmWithdrawal()
     })
 })
