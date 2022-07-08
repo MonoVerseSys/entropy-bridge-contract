@@ -12,6 +12,9 @@ async function main() {
 
     const contract = await attach(attachParams)
     const signers = await singers()
+
+    // contract.estimateGas.addValidator()
+
     // const result = await contract.addValidator(signers[2].address)
     // console.log(result)
 
