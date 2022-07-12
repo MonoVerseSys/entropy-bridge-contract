@@ -75,7 +75,7 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
                 amount);
         
         bool isExecuted = _confirmations[data];
-        require(isExecuted, "Already processed");
+        require(!isExecuted, "Already processed");
         
         uint validCounter = 0;
         for(uint i=0; i<signatures.length; i++) {
