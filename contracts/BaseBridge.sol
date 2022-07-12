@@ -65,7 +65,7 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
                         address owner, uint256 amount, bytes[] memory signatures) public whenNotPaused nonReentrant {
         uint256 totalMember = _validator.getValidatorCount();
         require(totalMember >= 3, "Lack of validators");
-        require(signatures.length <= 20, "Lack of chains");
+        require(signatures.length <= 20, "Too many signatures");
 
         bytes32 data = _createHash(
                 blockNumber,
