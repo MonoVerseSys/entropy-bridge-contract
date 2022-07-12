@@ -79,6 +79,21 @@
       "address": "0xf36eDB9c7ed861D012d679565ddf0732a510f946",
       "txHash": "0xfaf248989da31f49ff4b59e348067a7ebd3ab7367510ad5236f63d92f364785b",
       "kind": "transparent"
+    },
+    {
+      "address": "0xf956C0cad03d06F62EBd01d9Ec76d47764B43eea",
+      "txHash": "0xb6d1d060b683411d94f944565989e166537bee238fa31b7f1f2aff335224be29",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xbEe88f5cE0777dc53AA206C2d77bD8B22f114bce",
+      "txHash": "0x4fe380a375e1d02d48872c57688718c6545630b2587c1baa0ecc89a2d6e5e96e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x622d49B32F52DFbEC3FEE2b257BA0FDF682CDfE1",
+      "txHash": "0xe752aad7cd6a13644ac0e54e82c3eff7456d1a5fccd785b5fdc8f4ebf2264847",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -663,6 +678,58 @@
           "t_uint8": {
             "label": "uint8",
             "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "8d7aa725b3de23e91012740f925ab186e69222b45192b1e02803c05eb7eab1f5": {
+      "address": "0x97d16b9C3Cc2B8F0B62dC98E691b0D3AdF660220",
+      "txHash": "0x570e0048946a29a6d6c9e28e7261b7bba0488b0d07dbaca8bdd61b8e612540b2",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "8030dcc4f3b797f5f126146f2709035291a5a6ffead0d95163c3bc77f1935af2": {
+      "address": "0x93ad7AbeCBF6efCcc04333Cc8ccD339A243CA79B",
+      "txHash": "0x8a038a373c4a957fe5134ab2e869cd7c02697682a8e1ded809fb0e6144ec4488",
+      "layout": {
+        "storage": [
+          {
+            "label": "_name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage",
+            "contract": "Test",
+            "src": "contracts/Test.sol:10"
+          }
+        ],
+        "types": {
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    },
+    "79eb6ccd8e1e7712c48907ad89644a65dc9070cf0248a1cd098305624b6244a7": {
+      "address": "0xf12e2Bf76d024d7532A1691976EF8534ADDD2416",
+      "txHash": "0xa86e4bd4e4ffc85ad24caabb40c7105fc5e4754bb6013bb4d98557e0be971dc1",
+      "layout": {
+        "storage": [
+          {
+            "label": "_name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage",
+            "contract": "Test",
+            "src": "contracts/Test.sol:10"
+          }
+        ],
+        "types": {
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
           }
         }
       }

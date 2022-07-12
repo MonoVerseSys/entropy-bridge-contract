@@ -14,14 +14,9 @@ import "./IValidator.sol";
 abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgradeable, OwnableUpgradeable {
     using ECDSAUpgradeable for bytes32;
     
-    struct ConfirmData {
-        address[] validators;
-        bool isExecuted;
-    }
-
     // storage
     mapping(bytes32 => bool) internal _transactions;
-    mapping(bytes32 => ConfirmData) internal _confirmations;
+    mapping(bytes32 => bool) internal _confirmations;
     IValidator internal _validator;
     string internal _name;
 
@@ -66,9 +61,10 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
 
     function confirmWithdrawal(
                         uint256 blockNumber, uint256 trId, uint256 chainID, 
-                        address owner, uint256 amount, bytes memory signature) public whenNotPaused nonReentrant {
+                        address owner, uint256 amount, bytes[] memory signatures) public whenNotPaused nonReentrant {
         uint256 totalMember = _validator.getValidatorCount();
         require(totalMember >= 3, "Lack of validators");
+        require(signatures.length <= 20, "Lack of chains");
 
         bytes32 data = _createHash(
                 blockNumber,
@@ -77,28 +73,19 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
                 owner,
                 amount);
         
-        address recoverAddress = data.toEthSignedMessageHash().recover(signature);
-        require(recoverAddress != address(0), "Fail recover");
-        require(_validator.isValiator(recoverAddress), "Permission Error");
-        ConfirmData storage confirmData = _confirmations[data];
-        require(!confirmData.isExecuted, "Already processed");
-        bool checker = false;
-        uint len = confirmData.validators.length;
+        bool isExecuted = _confirmations[data];
+        require(isExecuted, "Already processed");
 
-        for(uint i=0; i<len; i++)  {
-            if(confirmData.validators[i] == recoverAddress) {
-                checker = true;
-                break;
+        uint validCounter = 0;
+        for(uint i=0; i<signatures.length; i++) {
+            bytes memory signature = signatures[i];
+            address recoverAddress = data.toEthSignedMessageHash().recover(signature);
+            if(recoverAddress != address(0) && _validator.isValiator(recoverAddress)) {
+                validCounter += 1;
             }
         }
-        require(!checker, "Already confirmation");
-
-        confirmData.validators.push(recoverAddress);
-
-        emit Confirm(data, trId, recoverAddress);
-
-        if(confirmData.validators.length >= totalMember / 2 + 1) {
-            confirmData.isExecuted = true;
+        if(validCounter >= totalMember / 2 + 1) {
+            _confirmations[data] = true;
             executeWithdrawal(
                 data, 
                 trId,
