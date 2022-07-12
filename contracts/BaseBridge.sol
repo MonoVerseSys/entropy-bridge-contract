@@ -22,7 +22,8 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
 
 
     event Deposit(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
-    event Confirm(bytes32 indexed trHash, uint256 indexed trId, address validatorAddress);
+    event Validated(bytes32 indexed trHash, uint256 indexed trId, uint256 validCounte);
+    event Failed(bytes32 indexed trHash, uint256 indexed trId, uint256 validCounte);
     event Withdrawal(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
     
     function __BaseBridge_init(string memory name, address validatorCa) internal onlyInitializing {
@@ -75,7 +76,7 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
         
         bool isExecuted = _confirmations[data];
         require(isExecuted, "Already processed");
-
+        
         uint validCounter = 0;
         for(uint i=0; i<signatures.length; i++) {
             bytes memory signature = signatures[i];
@@ -85,12 +86,15 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
             }
         }
         if(validCounter >= totalMember / 2 + 1) {
+            emit Validated(data, trId, validCounter);
             _confirmations[data] = true;
             executeWithdrawal(
                 data, 
                 trId,
                 owner,
                 amount);
+        } else {
+            emit Failed(data, trId, validCounter);
         }
     }
 
