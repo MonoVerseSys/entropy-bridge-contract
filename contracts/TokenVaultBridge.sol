@@ -16,7 +16,7 @@ contract TokenVaultBridge is BaseBridge {
     IErc20 private _erc20;
 
 
-    function initialize(string memory name, address validatorCa, address tokenCa) public initializer {
+    function initialize(string memory name, address tokenCa, address validatorCa) public initializer {
         require(validatorCa != address(0), "zero address");
 
         __Ownable_init();

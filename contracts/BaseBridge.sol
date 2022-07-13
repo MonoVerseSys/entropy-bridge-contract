@@ -81,7 +81,7 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
         for(uint i=0; i<signatures.length; i++) {
             bytes memory signature = signatures[i];
             address recoverAddress = data.toEthSignedMessageHash().recover(signature);
-            if(recoverAddress != address(0) && _validator.isValiator(recoverAddress)) {
+            if(recoverAddress != address(0) && _validator.isValidator(recoverAddress)) {
                 validCounter += 1;
             }
         }

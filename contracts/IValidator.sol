@@ -9,6 +9,6 @@ interface IValidator {
 
     function getValidatorCount()  external view returns(uint256);
 
-    function isValiator(address user) external view returns(bool);
+    function isValidator(address user) external view returns(bool);
 
 }

@@ -33,7 +33,7 @@ contract Validator is IValidator, Initializable, AccessControlEnumerableUpgradea
         return getRoleMemberCount(VALIDATOR_ROLE);
     }
 
-    function isValiator(address user) public view override returns(bool) {
+    function isValidator(address user) public view override returns(bool) {
         return hasRole(VALIDATOR_ROLE, user);
     }
 

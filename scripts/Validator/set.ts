@@ -21,9 +21,9 @@ async function main() {
     const count = await contract.getValidatorCount()
     console.log(count)
 
-    console.log(1, await contract.isValiator(signers[1].address))
-    console.log(2, await contract.isValiator(signers[2].address))
-    console.log(3, await contract.isValiator(signers[3].address))
+    console.log(1, await contract.isValidator(signers[1].address))
+    console.log(2, await contract.isValidator(signers[2].address))
+    console.log(3, await contract.isValidator(signers[3].address))
 }
 
 main().catch((error) => {
