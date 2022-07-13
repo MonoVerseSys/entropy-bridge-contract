@@ -22,8 +22,8 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
 
 
     event Deposit(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
-    event Validated(bytes32 indexed trHash, uint256 indexed trId, uint256 validCounter);
-    event Failed(bytes32 indexed trHash, uint256 indexed trId, uint256 validCounter);
+    event Validated(bytes32 indexed trHash, uint256 indexed trId, uint256 validCount);
+    event Failed(bytes32 indexed trHash, uint256 indexed trId, uint256 validCount);
     event Withdrawal(bytes32 indexed trHash, uint256 indexed trId, address owner, uint256 amount);
     
     function __BaseBridge_init(string memory name, address validatorCa) internal onlyInitializing {
