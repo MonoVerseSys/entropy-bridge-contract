@@ -12,7 +12,7 @@ contract Test {
         uint256 b, 
         address c, 
         string memory id, 
-        bytes memory signatgure) 
+        bytes memory signature) 
     public pure returns(bytes32, bytes32, address) {
 
         bytes32 data = keccak256(
@@ -23,7 +23,7 @@ contract Test {
                 id
         ));
         bytes32 ethSign = data.toEthSignedMessageHash();
-        address recoverAddress = ethSign.recover(signatgure);
+        address recoverAddress = ethSign.recover(signature);
         return (data, ethSign, recoverAddress);
     }
 
