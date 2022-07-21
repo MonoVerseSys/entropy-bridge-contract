@@ -35,9 +35,6 @@ const config: HardhatUserConfig = {
         entropy: {
             url: 'http://alb-chain-stage-edge-1070023354.ap-southeast-1.elb.amazonaws.com',
             accounts: { mnemonic: process.env.mnemonic, count: 40 },
-            // accounts: ['0xe1920281c4aae287c2b487bc66f915d5ff3444fbabfd2c6633b03487d9d712ec'],
-            // accounts: ['b2c6620b1bfbfc0b2b534806a67760e3b034735c502b388cbb9ac8668556939e'],
-
             gas: 'auto',
             gasPrice: 'auto',
         },
