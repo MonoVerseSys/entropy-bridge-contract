@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.5;
 
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
@@ -7,19 +7,20 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721Enumer
 import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721BurnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "./IFruttiDinoNFT.sol";
 /**
  * @title FruttiDinoNFT
  * @author Ho Dong Kim (monoverse.io)
  * @dev frutti dino nft v1
  */
-contract FruttiDinoNFT is Initializable, OwnableUpgradeable, AccessControlUpgradeable, ERC721EnumerableUpgradeable {
+contract FruttiDinoNFT is IFruttiDinoNFT,  Initializable, OwnableUpgradeable, AccessControlUpgradeable, ERC721EnumerableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
-    event MintDino(address indexed to, uint256 indexed tokenId, string dinoId);
-
+    
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    CountersUpgradeable.Counter private _tokenIds;
+    CountersUpgradeable.Counter private _tokenIds; // deprecated
     string private _baseUri;
     mapping(string => uint256) private _dinoIds;// key : dino, value : token id
+    uint256 private  _latestTokenId;
 
     function initialize() public initializer {
         __Ownable_init();
@@ -47,28 +48,31 @@ contract FruttiDinoNFT is Initializable, OwnableUpgradeable, AccessControlUpgrad
         return _dinoIds[dinoId];
     }
 
+    function getLatestTokenId() public view returns(uint256) {
+        return _latestTokenId;
+    }
 
-    function mintDino(address player, string memory dinoId)
+
+    function mintDino(address player, uint256 nftId, string memory dinoId)
         public onlyRole(MINTER_ROLE)
-        returns (uint256)
     {
-        require(tokenIdFromDinoId(dinoId) == 0, "It already exists");
-        _tokenIds.increment();
+        require(!_exists(nftId), "It already exists (nft id)");
+        require(tokenIdFromDinoId(dinoId) == 0, "It already exists (dino id)");
+        // _tokenIds.increment();
 
-        uint256 newItemId = _tokenIds.current();
-        _mint(player, newItemId);
-        _dinoIds[dinoId] = newItemId;
-        emit MintDino(player, newItemId, dinoId);
-        return newItemId;
+        // uint256 newItemId = _tokenIds.current();
+        _mint(player, nftId);
+        _dinoIds[dinoId] = nftId;
+        _latestTokenId = nftId;
+        emit MintDino(player, nftId, dinoId);
     }
 
-    function burn(uint256 tokenId) public virtual {
-        //solhint-disable-next-line max-line-length
-        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721Burnable: caller is not owner nor approved");
-        _burn(tokenId);
+    function batchMintDino(address[] memory players, uint256[] memory nftIds, string[] memory dinoIds) public {
+        uint256 dataLen = players.length;
+        require(dataLen > 0, "data length must be greater than zero");
+        require(dataLen == nftIds.length && nftIds.length == dinoIds.length, "invalid params");
+        for(uint256 i=0; i<dataLen; i++) {
+            mintDino(players[i], nftIds[i], dinoIds[i]);
+        }
     }
-    
-
-
-    uint256[46] private __gap;
 }
