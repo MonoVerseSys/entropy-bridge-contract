@@ -32,7 +32,7 @@ contract NFTBridge is BaseBridge {
     function depositToken(address _receiver, uint256 tokenId) override external  whenNotPaused nonReentrant {
         require(_receiver != address(0), "zero address");
         require(_fruttiDinoNFT.ownerOf(tokenId) == msg.sender, "sender is not owner of token");
-        require(_fruttiDinoNFT.getApproved(tokenId) == address(this), "token is not allowed for VaultBridge");
+        require(_fruttiDinoNFT.isApprovedForAll(msg.sender, address(this)) || _fruttiDinoNFT.getApproved(tokenId) == address(this), "token is not allowed for bridge contract");
 
         _transactionId.increment();
         bytes32 data = _createHash(block.number,
