@@ -10,7 +10,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../validator/IValidator.sol";
 
 
-
 abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGuardUpgradeable, OwnableUpgradeable {
     using ECDSAUpgradeable for bytes32;
     
@@ -117,6 +116,8 @@ abstract contract BaseBridge is Initializable, PausableUpgradeable, ReentrancyGu
             _unpause();
         }
     }
+
+
 
     function depositNative(address _receiver) external payable virtual;
     function depositToken(address _receiver, uint256 amount) external virtual;

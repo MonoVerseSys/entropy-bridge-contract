@@ -2,6 +2,8 @@
   "contractName": "Validator",
   "networks": {
     "local": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-    "entropy": "0xfFd31Cb272a41eB93755536fB9BA100261efBf8e"
+    "entropy": "0xfFd31Cb272a41eB93755536fB9BA100261efBf8e",
+    "gorli": "0xaF4A691bd0C3aE0D8eda81243035EBc8b5E92437",
+    "deadcat": "0xaF4A691bd0C3aE0D8eda81243035EBc8b5E92437"
   }
 }

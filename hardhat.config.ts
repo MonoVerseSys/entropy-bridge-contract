@@ -38,6 +38,24 @@ const config: HardhatUserConfig = {
             gas: 'auto',
             gasPrice: 'auto',
         },
+        deadcat: {
+            url: 'http://52.78.81.195:16812',
+            accounts: { mnemonic: process.env.mnemonicEther, count: 40 },
+            gas: 'auto',
+            gasPrice: 'auto',
+        },
+        eth: {
+            url: 'https://mainnet.infura.io/v3/f46896f9ca304f76b63471fe298f8fba',
+            accounts: { mnemonic: process.env.mnemonicEther, count: 40 },
+            gas: 'auto',
+            gasPrice: 'auto',
+        },
+        gorli: {
+            url: 'https://goerli.infura.io/v3/f46896f9ca304f76b63471fe298f8fba',
+            accounts: { mnemonic: process.env.mnemonicEther, count: 40 },
+            gas: 'auto',
+            gasPrice: 'auto',
+        },
     },
     gasReporter: {
         enabled: process.env.REPORT_GAS !== undefined,

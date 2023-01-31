@@ -14,16 +14,35 @@ async function main() {
     const signers = await singers()
 
     // contract.estimateGas.addValidator()
+    let validators = []
+    switch (net) {
+        case 'gorli':
+            validators.push('0x9Af5ff499AAd50efAAF47DE1D1eE51c0cF9230f1')
+            validators.push('0x389a7E737eE3c4253AFE0148CDB42D91D6A13061')
+            validators.push('0x84d969db58e3F08a4A2284Dca06eA21543EC1c0D')
+            break
+        case 'deadcat':
+            validators.push('0x9Af5ff499AAd50efAAF47DE1D1eE51c0cF9230f1')
+            validators.push('0x389a7E737eE3c4253AFE0148CDB42D91D6A13061')
+            validators.push('0x84d969db58e3F08a4A2284Dca06eA21543EC1c0D')
+            break
+    }
+    // run add validator
+    for (let i = 0; i < validators.length; i++) {
+        const tx = await contract.addValidator(validators[i])
+        console.log(tx)
+        const receipt = await tx.wait()
+        console.log(receipt)
+    }
 
-    // const result = await contract.addValidator(signers[2].address)
     // console.log(result)
 
     const count = await contract.getValidatorCount()
     console.log(count)
 
-    console.log(1, await contract.isValidator(signers[1].address))
-    console.log(2, await contract.isValidator(signers[2].address))
-    console.log(3, await contract.isValidator(signers[3].address))
+    for (let i = 0; i < validators.length; i++) {
+        console.log(i, await contract.isValidator(validators[i]))
+    }
 }
 
 main().catch((error) => {
