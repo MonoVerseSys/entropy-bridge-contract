@@ -33,7 +33,7 @@ const config: HardhatUserConfig = {
             accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
         },
         entropy: {
-            url: 'http://alb-chain-stage-edge-1070023354.ap-southeast-1.elb.amazonaws.com',
+            url: 'https://rpc.entropynetwork.io',
             accounts: { mnemonic: process.env.mnemonic, count: 40 },
             gas: 'auto',
             gasPrice: 'auto',
@@ -45,13 +45,13 @@ const config: HardhatUserConfig = {
             gasPrice: 'auto',
         },
         eth: {
-            url: 'https://mainnet.infura.io/v3/f46896f9ca304f76b63471fe298f8fba',
+            url: 'https://eth-mainnet.g.alchemy.com/v2/ycjs_CKDw2fQNLzH-T7mzQt4W3p15LQD',
             accounts: { mnemonic: process.env.mnemonicEther, count: 40 },
             gas: 'auto',
             gasPrice: 'auto',
         },
-        gorli: {
-            url: 'https://goerli.infura.io/v3/f46896f9ca304f76b63471fe298f8fba',
+        goerli: {
+            url: 'https://eth-goerli.g.alchemy.com/v2/uxkc6yaKk4rfJJNLGOflwrL0g7dZ4QXA',
             accounts: { mnemonic: process.env.mnemonicEther, count: 40 },
             gas: 'auto',
             gasPrice: 'auto',
@@ -62,7 +62,7 @@ const config: HardhatUserConfig = {
         currency: 'USD',
     },
     etherscan: {
-        apiKey: process.env.ETHERSCAN_API_KEY,
+        apiKey: process.env.etherScanKey,
     },
 }
 

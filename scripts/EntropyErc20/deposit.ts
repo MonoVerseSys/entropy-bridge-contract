@@ -19,7 +19,7 @@ async function main() {
     const bridge = '0x41C6b8c24d40c361c867067ba091daF1829c4B90'
     // const tx = await contract.transferAndCall(bridge, ethers.utils.parseEther('1'), data)
     console.log(contract)
-    const tx = await contract['transferAndCall(address,uint256,bytes)'](bridge, ethers.utils.parseEther('1'), data)
+    const tx = await contract['transferAndCall(address,uint256,bytes)'](bridge, ethers.utils.parseEther('0.0002'), data)
     console.log(tx)
     const receipt = await tx.wait()
     console.log(receipt)
