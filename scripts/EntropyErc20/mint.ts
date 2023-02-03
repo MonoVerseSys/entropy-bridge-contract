@@ -11,12 +11,13 @@ async function main() {
     }
     const s = await singers()
     const contract = await attach(attachParams)
-    const tx = await contract.mint(s[0].address, ethers.utils.parseEther('100000'))
+    const to = '0xC418d3906d4FA9BF173fb20518c97859a8A63f14'
+    const tx = await contract.mint(to, ethers.utils.parseEther('10000'))
     console.log(tx)
     const receipt = await tx.wait()
     console.log(receipt)
 
-    const balance = ethers.utils.formatEther(await contract.balanceOf(s[0].address))
+    const balance = ethers.utils.formatEther(await contract.balanceOf(to))
     console.log(s[0].address, ':', balance)
 }
 

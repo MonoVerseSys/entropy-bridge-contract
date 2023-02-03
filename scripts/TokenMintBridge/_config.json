@@ -1,6 +1,6 @@
 {
   "contractName": "TokenMintBridge",
   "networks": {
-    "gorli": "0x41C6b8c24d40c361c867067ba091daF1829c4B90"
+    "goerli": "0x41C6b8c24d40c361c867067ba091daF1829c4B90"
   }
 }

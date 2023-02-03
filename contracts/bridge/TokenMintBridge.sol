@@ -71,7 +71,7 @@ contract TokenMintBridge is BaseBridge, ERC1363Receiver, ERC1363Spender {
 
     function burn() public nonReentrant() {
         uint256 balance = _erc20.balanceOf(address(this));
-        _erc20.burnFrom(address(this), balance);
+        _erc20.burn(balance);
     }
 
 }

@@ -1,6 +1,7 @@
 import { ethers } from 'hardhat'
 import { deployProxy, DeployParams, ContractAttach, singers, attach, getNetwork, Config } from '../utils'
 import * as config from './_config.json'
+
 async function main() {
     const net = getNetwork()
     const configData: Config = config
@@ -11,15 +12,8 @@ async function main() {
     }
 
     const contract = await attach(attachParams)
-    const signers = await singers()
-    const amount = ethers.utils.parseEther('3')
-    const tx = await contract.depositNative(signers[0].address, { value: amount })
-    console.log(tx)
-    const receipt = await tx.wait()
-    console.log(receipt)
-
-    const contractBalance = await ethers.provider.getBalance(attachParams.deployedAddress)
-    console.log(`contractBalance:`, ethers.utils.formatEther(contractBalance))
+    const bal = await contract.balanceOf('0x41C6b8c24d40c361c867067ba091daF1829c4B90')
+    console.log(`bal ${ethers.utils.formatEther(bal)}`)
 }
 
 main().catch((error) => {

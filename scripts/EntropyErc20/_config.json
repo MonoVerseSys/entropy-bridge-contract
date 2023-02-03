@@ -1,7 +1,7 @@
 {
   "contractName": "EntropyErc20",
   "networks": {
-    "gorli": "0x67F98dF891D0699fD0BF6B24c641d323ac73828a",
+    "goerli": "0x67F98dF891D0699fD0BF6B24c641d323ac73828a",
     "deadcat": "0x67F98dF891D0699fD0BF6B24c641d323ac73828a",
     "eth": "0x675ABaBD3A210566A5e213547523b740Be80041A"
   }
