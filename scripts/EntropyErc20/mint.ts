@@ -11,7 +11,7 @@ async function main() {
     }
     const s = await singers()
     const contract = await attach(attachParams)
-    const to = '0xC418d3906d4FA9BF173fb20518c97859a8A63f14'
+    const to = '0x31646d61bced8697C77AC4Fc8bb75C43eaae8b7F'
     const tx = await contract.mint(to, ethers.utils.parseEther('10000'))
     console.log(tx)
     const receipt = await tx.wait()

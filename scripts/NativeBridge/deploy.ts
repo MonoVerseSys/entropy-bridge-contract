@@ -14,7 +14,7 @@ async function main() {
     console.log(`contractName: ${contractName}`)
     const params: DeployParams = {
         contractName: contractName,
-        deployParams: [bridgeName, '0xaF4A691bd0C3aE0D8eda81243035EBc8b5E92437'],
+        deployParams: [bridgeName, '0x29B3AF9dD1B4F5302d371f2C4e8cA7c3df4a57fE'],
     }
 
     await deployProxy(params)

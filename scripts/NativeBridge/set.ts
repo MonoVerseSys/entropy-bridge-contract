@@ -12,13 +12,13 @@ async function main() {
     }
 
     const contract = await attach(attachParams)
-    const signers = await singers()
-    const tx = await contract.setEcoAddress(signers[0].address)
-    console.log(tx)
-    const receipt = await tx.wait()
-    console.log(receipt)
+    // const signers = await singers()
+    // const tx = await contract.setEcoAddress(signers[0].address)
+    // console.log(tx)
+    // const receipt = await tx.wait()
+    // console.log(receipt)
 
-    const tx2 = await contract.setFee(ethers.utils.parseEther('1'))
+    const tx2 = await contract.setFee(ethers.utils.parseEther('3'))
     console.log(tx2)
     const receipt2 = await tx2.wait()
     console.log(receipt2)

@@ -11,8 +11,8 @@ async function main() {
     }
     const s = await singers()
     const contract = await attach(attachParams)
-    // const tx = await contract.setBridge('0x41C6b8c24d40c361c867067ba091daF1829c4B90')
-    const tx = await contract.setBridge(s[0].address) // 테스트로 현재 singer를 브릿지에 추가. 테스트 토큰 mint 하기 위함.
+    const tx = await contract.setBridge('0x21f0Edd7831A51d1e1930128450786c0dfF05Ec0')
+    // const tx = await contract.setBridge(s[0].address) // 테스트로 현재 singer를 브릿지에 추가. 테스트 토큰 mint 하기 위함.
     console.log(tx)
     const receipt = await tx.wait()
     console.log(receipt)

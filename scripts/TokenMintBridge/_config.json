@@ -1,6 +1,8 @@
 {
   "contractName": "TokenMintBridge",
   "networks": {
-    "goerli": "0x41C6b8c24d40c361c867067ba091daF1829c4B90"
+    "goerli": "0x41C6b8c24d40c361c867067ba091daF1829c4B90",
+    "bnbtestnet": "0x7F711c881CbFb1D693d83Bc81DE25f90442CeCdb",
+    "bnb": "0x21f0Edd7831A51d1e1930128450786c0dfF05Ec0"
   }
 }

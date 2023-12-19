@@ -56,13 +56,27 @@ const config: HardhatUserConfig = {
             gas: 'auto',
             gasPrice: 'auto',
         },
+        bnbtestnet: {
+            url: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+            accounts: { mnemonic: process.env.mnemonic },
+            chainId: 97,
+            gasPrice: 'auto',
+        },
+        bnb: {
+            url: 'https://bsc-dataseed.binance.org/',
+            accounts: { mnemonic: process.env.mnemonic },
+            chainId: 56,
+            gasPrice: 'auto',
+        },
     },
     gasReporter: {
         enabled: process.env.REPORT_GAS !== undefined,
         currency: 'USD',
     },
     etherscan: {
-        apiKey: process.env.etherScanKey,
+        apiKey: {
+            bsc: '37WG8272Q3CIHWY4C1XXVR6RMSEK65GKRW',
+        },
     },
 }
 
